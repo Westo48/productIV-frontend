@@ -1,17 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import { render } from 'react-dom'
+import './index.css'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+
+import { Provider } from 'react-redux'
+import App from './App'
+import store from './store'
+
+
+// Alert Options
+const alertOptions = {
+  timeout: 2000,
+  position: 'top center',
+}
+
+render(
+  <Provider store={store}>
+    <AlertProvider template={AlertTemplate}{...alertOptions}>
+      <App />
+    </AlertProvider>
+  </Provider>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();

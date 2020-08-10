@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from 'react'
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch
+} from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css'
+
+import store from './store'
+import { } from 'react-dom'
+
+import Header from './components/layout/Header'
+import Alerts from './components/layout/Alerts'
+import { } from './components/layout/Footer'
+import Hub from './pages/Hub'
+import Login from './components/accounts/Login'
+import Register from './components/accounts/Register'
+import NoteDashboard from './components/notes/Dashboard'
+import Note from './components/notes/Note'
+import ToDoDashboard from './components/todos/Dashboard'
+
+import { loadUser } from './actions/authAction'
+import NoteEdit from './components/notes/NoteEdit'
+
+
+export default class App extends Component {
+    componentDidMount() {
+        store.dispatch(loadUser())
+    }
+
+    render() {
+        return (
+            <Router>
+                <Fragment>
+                    <Header />
+                    <Alerts />
+                    <div className="container">
+                        <Switch>
+                            <Route exact path="/" component={Hub} />
+                            <Route exact path="/login" component={Login} />
+                            <Route exact path="/register" component={Register} />
+                            <Route exact path="/notes" component={NoteDashboard} />
+                            <Route exact path="/notes/:id" component={Note} />
+                            <Route exact path="/notes/:id/edit" component={NoteEdit} />
+                            <Route exact path="/todos" component={ToDoDashboard} />
+                        </Switch>
+                    </div>
+                </Fragment>
+            </Router>
+        )
+    }
 }
 
-export default App;
+
+
